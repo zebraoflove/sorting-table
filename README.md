@@ -7,3 +7,4 @@
    ```bash
     npx expo start
    ```
+3. Press 'w' to open web
