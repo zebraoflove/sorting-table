@@ -1,47 +1,52 @@
 import { Paginator, SearchPanel, TitlesTable } from '../../../modules'
 import { View } from 'react-native'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { searchAPI } from '../api/api'
 import { filterType, orderType, sortDirectionType } from '../../../shared/config'
-
-export const TitlesList = () => {
-	const [page, setPage] = useState(1)
+import { Preloader } from '../../../shared/ui/preloader'
+export const TitlesList: FC = () => {
+	const [isReady, setIsReady] = useState(false)
+	const [page, setPage] = useState(0)
 	const [data, setData] = useState(null as null | any)
 	const [totalPages, setTotalPages] = useState(0)
 	const [filter, setFilter] = useState({
 		titleName: '',
 		dateFrom: '',
 		dateTo: '',
-		score: '1'
+		score: '0'
 	} as filterType)
 	const [sortIndex, setSortIndex] = useState('' as orderType)
 	const [sortDirection, setSortDirection] = useState('asc' as sortDirectionType)
-	// useEffect(() => {
-	// 	onFind()
-	// 	console.log('start')
-	// }, [])
 	useEffect(() => {
-		onFind()
-		console.log('page')
+		if(page !== 0) onFind()
 	}, [page])
 	useEffect(() => {
-		if (page === 1) onFind()
-		else setPage(1)
-		console.log('filter/sort direction')
-	}, [filter, sortDirection])
-	useEffect(() => {
-		if (sortDirection === 'desc') setSortDirection('asc')
-		else {
+		if(filter.score !== '0') {
 			if (page === 1) onFind()
 			else setPage(1)
 		}
-		console.log('sortIndex')
+	}, [filter])
+	useEffect(() => {
+		if (page === 1) onFind()
+		else setPage(1)
+	}, [sortDirection])
+	useEffect(() => {
+		if(sortIndex !== '') {
+			if (sortDirection === 'desc') setSortDirection('asc')
+			else {
+				if (page === 1) onFind()
+				else setPage(1)
+			}
+		}
 	}, [sortIndex])
 	const onFind = () => {
-		searchAPI.search(page, filter, sortIndex, sortDirection).then(res => {
+		setIsReady(false)
+		let currentPage = 1
+		if(page != 0) currentPage = page
+		searchAPI.search(currentPage, filter, sortIndex, sortDirection).then(res => {
 			setTotalPages(res.pagination.last_visible_page)
 			setData(res.data)
-			console.log(page)
+			setIsReady(true)
 		})
 	}
 	const changePage = (currentPage: number) => {
@@ -59,9 +64,12 @@ export const TitlesList = () => {
 	}
 	return (
 		<View className='relative h-full'>
-			<SearchPanel setFilter={setFilter} />
-			<TitlesTable tableBody={data} changeSortIndex={changeSortIndex}/>
-			<Paginator totalPages={totalPages} changePage={changePage} currentPage={page}/>
+			{!isReady && <Preloader/>}
+			<div className={isReady ? '' : 'blur-2xl'}>
+				<SearchPanel setFilter={setFilter} />
+				<TitlesTable tableBody={data} changeSortIndex={changeSortIndex}/>
+				<Paginator totalPages={totalPages} changePage={changePage} currentPage={page}/>
+			</div>
 		</View>
 	)
 }

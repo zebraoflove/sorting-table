@@ -42,7 +42,7 @@ export const TitlesTable: FC<PropsType> = ({ tableBody, changeSortIndex }) => {
 			<tbody>
 				{tableBody
 					? tableBody.map(row => (
-							<Title
+							<Title key={row.title}
 								name={row.title}
 								description={row.synopsis}
 								releaseDate={row.aired.from ? row.aired.from : 0}

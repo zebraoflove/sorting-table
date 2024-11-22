@@ -17,8 +17,8 @@ export const Title: FC<PropsType> = ({
 		<tr className='border-4 border-amber-700'>
 			<td className='border-2 border-amber-700'>{name}</td>
 			<td className='border-2 border-amber-700'>{description}</td>
-			<td className='border-2 border-amber-700 text-center'>{date}</td>
-			<td className='border-2 border-amber-700 text-center'>{score}</td>
+			<td className='border-2 border-amber-700 text-center'>{(releaseDate === 0) ? '-' : date}</td>
+			<td className='border-2 border-amber-700 text-center'>{score === 0 ? '-' : score}</td>
 		</tr>
 	)
 }

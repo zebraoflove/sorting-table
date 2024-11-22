@@ -28,7 +28,8 @@ export const searchAPI = {
 		}, order: orderType = '', direction: sortDirectionType = 'asc'
 	) {
 		const portion = 25
-		const score: number = +filter.score
+		let score: number = +filter.score
+		if(score < 1) score = 1
 		const titleLetter = filter.titleName.substring(0, 1)
 		const res = await instance.get<DataResponseType>(
 			`/anime?page=${page}&letter=${titleLetter}&start_date=${filter.dateFrom}&end_date=${filter.dateTo}
