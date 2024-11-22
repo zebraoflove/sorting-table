@@ -12,10 +12,6 @@ export const Title: FC<PropsType> = ({
 	releaseDate,
 	score
 }) => {
-	console.log(name)
-	console.log(description)
-	console.log(releaseDate)
-	console.log(score)
 	let date = releaseDate.toString().substring(0, 10)
 	return (
 		<tr className='border-4 border-amber-700'>

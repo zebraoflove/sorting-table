@@ -1,2 +1,3 @@
-export { SearchPannel } from './search-pannel/ui/search-pannel'
+export { SearchPanel } from './search-pannel/ui/search-panel'
 export { TitlesTable } from './titles-table/titles-table'
+export { Paginator } from './paginator/paginator'

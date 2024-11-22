@@ -14,18 +14,18 @@ export const TitlesTable: FC<PropsType> = ({ tableBody }) => {
 		<table>
 			<thead>
 				<tr>
-					<th className='text-left'>
+					<th className='text-center'>
 						<text>Title</text>
 						<SortButton isDisable={false} onSort={onSort}></SortButton>
 					</th>
-					<th className='text-left'>
+					<th className='text-center'>
 						<text>Description</text>
 					</th>
-					<th className='text-center'>
+					<th className='text-center w-1/12'>
 						<text>Release date</text>
 						<SortButton isDisable={false} onSort={onSort}></SortButton>
 					</th>
-					<th className='text-center'>
+					<th className='text-center w-1/12'>
 						<text>Score</text>
 						<SortButton isDisable={false} onSort={onSort}></SortButton>
 					</th>
