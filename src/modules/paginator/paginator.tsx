@@ -3,11 +3,13 @@ import { FC, useState } from 'react'
 import AntDesign from '@expo/vector-icons/AntDesign'
 type PropsType = {
 	totalPages: number
+	currentPage: number
 	portionSize?: number
 	changePage: (currentPage: number) => void
 }
 export const Paginator: FC<PropsType> = ({
 	totalPages,
+	currentPage,
 	changePage,
 	portionSize = 10
 }) => {
@@ -41,7 +43,7 @@ export const Paginator: FC<PropsType> = ({
 				.map(p => {
 					return (
 						<span
-							className='cursor-pointer'
+							className={p===currentPage ? "cursor-pointer font-bold" : "cursor-pointer"}
 							key={p}
 							onClick={() => {
 								changePage(p)

@@ -4,3 +4,5 @@ export type filterType = {
 	dateTo: string
 	score: string
 }
+export type orderType = 'title'| 'start_date' | 'score' |''
+export type sortDirectionType = 'asc' | 'desc'
